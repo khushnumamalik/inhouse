@@ -1,0 +1,35 @@
+.home-container {
+  margin-left: 270px;
+  margin-top: 70px;
+  padding: 20px;
+  background-color: #f9fafb;
+  min-height: calc(100vh - 70px);
+  transition: margin-left 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    margin-left: 0;
+  }
+}
+
+.home-content {
+  max-width: 1200px;
+}
+
+.home-content h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 20px;
+}
+
+.additional-content {
+  margin-top: 20px;
+}
+
+.additional-content p {
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1.6;
+}
