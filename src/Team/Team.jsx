@@ -129,7 +129,7 @@ const Team = () => {
   const renderActionDropdown = (member) => (
     <div className="action-dropdown">
       <button className="action-btn" onClick={() => toggleDropdown(member.id)}>
-        <i className="ri-more-2-fill"></i>
+        <i className="ri-more-2-line"></i>
       </button>
       {activeDropdown === member.id && (
         <div className="dropdown-menu">

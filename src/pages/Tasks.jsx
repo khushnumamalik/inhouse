@@ -482,53 +482,57 @@ const Tasks = () => {
             </div>
 
             <form onSubmit={handleEditSubmit} className="task-details-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="editTitle">Task Title</label>
-                  <input
-                    type="text"
-                    id="editTitle"
-                    name="title"
-                    value={editTask.title}
-                    onChange={handleEditInputChange}
-                    placeholder="Enter task title"
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="editTitle" className="form-label">Task Title</label>
+                <input
+                  type="text"
+                  id="editTitle"
+                  name="title"
+                  value={editTask.title}
+                  onChange={handleEditInputChange}
+                  placeholder="Redesign landing page"
+                  className="form-input"
+                />
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="editDescription">Description</label>
-                  <textarea
-                    id="editDescription"
-                    name="description"
-                    value={editTask.description}
-                    onChange={handleEditInputChange}
-                    placeholder="Enter task description"
-                    rows="3"
-                  />
-                </div>
+              <div className="form-group">
+                <label htmlFor="editDescription" className="form-label">Description</label>
+                <textarea
+                  id="editDescription"
+                  name="description"
+                  value={editTask.description}
+                  onChange={handleEditInputChange}
+                  placeholder="Update the landing page with new branding"
+                  rows="3"
+                  className="form-textarea"
+                />
               </div>
 
               <div className="form-row">
                 <div className="form-group half">
-                  <label htmlFor="editDueDate">Due Date</label>
-                  <input
-                    type="date"
-                    id="editDueDate"
-                    name="dueDate"
-                    value={editTask.dueDate}
-                    onChange={handleEditInputChange}
-                  />
+                  <label htmlFor="editDueDate" className="form-label">Due Date</label>
+                  <div className="date-input-wrapper">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" className="date-icon">
+                      <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/>
+                    </svg>
+                    <input
+                      type="date"
+                      id="editDueDate"
+                      name="dueDate"
+                      value={editTask.dueDate}
+                      onChange={handleEditInputChange}
+                      className="form-input date-input"
+                    />
+                  </div>
                 </div>
                 <div className="form-group half">
-                  <label htmlFor="editPriority">Priority</label>
+                  <label htmlFor="editPriority" className="form-label">Priority</label>
                   <select
                     id="editPriority"
                     name="priority"
                     value={editTask.priority}
                     onChange={handleEditInputChange}
-                    className="priority-select"
+                    className="form-select priority-select"
                   >
                     <option value="High">High</option>
                     <option value="Medium">Medium</option>
@@ -537,85 +541,137 @@ const Tasks = () => {
                 </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-group half">
-                  <label>Status</label>
-                  <select className="status-select">
-                    <option value="todo">To Do</option>
-                    <option value="inprogress">In Progress</option>
-                    <option value="done">Done</option>
-                  </select>
+              <div className="form-group">
+                <label className="form-label">Status</label>
+                <select className="form-select status-select">
+                  <option value="todo">To Do</option>
+                  <option value="inprogress">In Progress</option>
+                  <option value="done">Done</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Subtasks</label>
+                <div className="subtasks-list">
+                  {editTask.subtasks.map((subtask) => (
+                    <div key={subtask.id} className="subtask-item">
+                      <input
+                        type="checkbox"
+                        checked={subtask.completed}
+                        onChange={() => handleSubtaskToggle(subtask.id)}
+                        className="subtask-checkbox"
+                      />
+                      <span className={`subtask-text ${subtask.completed ? 'completed' : ''}`}>
+                        {subtask.text}
+                      </span>
+                    </div>
+                  ))}
+                  <button type="button" className="add-subtask-link" onClick={addSubtask}>
+                    Add Subtask
+                  </button>
                 </div>
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Subtasks</label>
-                  <div className="subtasks-container">
-                    {editTask.subtasks.map((subtask) => (
-                      <div key={subtask.id} className="subtask-item">
-                        <input
-                          type="checkbox"
-                          checked={subtask.completed}
-                          onChange={() => handleSubtaskToggle(subtask.id)}
-                          className="subtask-checkbox"
-                        />
-                        <input
-                          type="text"
-                          value={subtask.text}
-                          onChange={(e) => updateSubtaskText(subtask.id, e.target.value)}
-                          placeholder="Subtask description"
-                          className="subtask-input"
-                        />
+              <div className="form-group">
+                <label className="form-label">Assignees</label>
+                <div className="assignees-list">
+                  <div className="assignee-item">
+                    <div className="assignee-avatar orange">SJ</div>
+                    <span className="assignee-name">Sarah Johnson</span>
+                  </div>
+                  <div className="assignee-item">
+                    <div className="assignee-avatar blue">DK</div>
+                    <span className="assignee-name">David Kim</span>
+                  </div>
+                  <button type="button" className="add-assignee-link">+ Add</button>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Comments</label>
+                <div className="comments-section">
+                  <div className="comment-item">
+                    <div className="comment-avatar">
+                      <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=32&h=32&fit=crop&crop=face" alt="Sarah Johnson" />
+                    </div>
+                    <div className="comment-content">
+                      <div className="comment-header">
+                        <span className="comment-author">Sarah Johnson</span>
+                        <span className="comment-time">2 days ago</span>
                       </div>
-                    ))}
-                    <button type="button" className="add-subtask-btn" onClick={addSubtask}>
-                      + Add Subtask
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Assignees</label>
-                  <div className="assignees-container">
-                    <div className="assignee-item">
-                      <div className="assignee-avatar">SJ</div>
-                      <span>Sarah Johnson</span>
+                      <div className="comment-text">I've started working on this. Will update the progress soon.</div>
                     </div>
-                    <div className="assignee-item">
-                      <div className="assignee-avatar">DK</div>
-                      <span>David Kim</span>
-                    </div>
-                    <button type="button" className="add-assignee-btn">+ Add</button>
                   </div>
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Comments</label>
-                  <div className="comments-section">
-                    <div className="comment-item">
-                      <div className="comment-avatar">SJ</div>
-                      <div className="comment-content">
-                        <div className="comment-author">Sarah Johnson</div>
-                        <div className="comment-text">Great progress on this task! The wireframes look good.</div>
+                  <div className="comment-item">
+                    <div className="comment-avatar">
+                      <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" alt="David Kim" />
+                    </div>
+                    <div className="comment-content">
+                      <div className="comment-header">
+                        <span className="comment-author">David Kim</span>
+                        <span className="comment-time">Yesterday</span>
                       </div>
+                      <div className="comment-text">Let me know if you need any help with this task.</div>
                     </div>
                   </div>
+                  <div className="comment-input-section">
+                    <input 
+                      type="text" 
+                      placeholder="Add a comment..." 
+                      className="comment-input"
+                    />
+                    <button type="button" className="post-comment-btn">Post</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Attachments</label>
+                <div className="attachments-section">
+                  <div className="attachment-item">
+                    <div className="attachment-icon pdf">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                      </svg>
+                    </div>
+                    <div className="attachment-info">
+                      <div className="attachment-name">requirements.pdf</div>
+                      <div className="attachment-meta">1.2 MB • Added 3 days ago</div>
+                    </div>
+                    <button type="button" className="download-btn">Download</button>
+                  </div>
+                  <div className="attachment-item">
+                    <div className="attachment-icon excel">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                      </svg>
+                    </div>
+                    <div className="attachment-info">
+                      <div className="attachment-name">data.xlsx</div>
+                      <div className="attachment-meta">845 KB • Added yesterday</div>
+                    </div>
+                    <button type="button" className="download-btn">Download</button>
+                  </div>
+                  <button type="button" className="add-attachment-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"/>
+                    </svg>
+                    Add Attachment
+                  </button>
                 </div>
               </div>
 
               <div className="task-details-actions">
-                <button type="button" className="close-task-btn" onClick={closeEditModal}>
+                <button type="button" className="btn-secondary" onClick={closeEditModal}>
                   Close
                 </button>
-                <button type="button" className="open-full-task-btn">
+                <button type="button" className="btn-outline">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/>
+                  </svg>
                   Open Full Task
                 </button>
-                <button type="submit" className="save-changes-btn">
+                <button type="submit" className="btn-primary">
                   Save Changes
                 </button>
               </div>

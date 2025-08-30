@@ -99,6 +99,7 @@ function App() {
         <Route path="/leave-request" element={<LeaveRequest />} />
         <Route path="/department" element={<Department />} />
         <Route path="/loan" element={<Loan />} />
+        {/* <Route path="/loan" element={<Loan />} /> */}
         
         
         <Route path="/invoice" element={<Invoice />} />

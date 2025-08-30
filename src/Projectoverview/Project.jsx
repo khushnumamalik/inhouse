@@ -97,7 +97,7 @@ const Project = () => {
       <div className="project-info">
         <div className="project-title">
           <span className="project-name">{project.name}</span>
-          <i className="ri-star-fill star-icon"></i>
+          <i className="ri-star-line star-icon"></i>
         </div>
         <p className="project-description">{project.description}</p>
       </div>

@@ -1,10 +1,12 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import './Sidebar.css'
 
 // Sidebar Component
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showUserDropdown, setShowUserDropdown] = useState(false);
+  const userDropdownRef = useRef(null);
   const [dropdowns, setDropdowns] = useState({
     dashboard: false,      // Dashboard dropdown open or closed
     projects: false,       // Projects dropdown open or closed
@@ -19,11 +21,28 @@ const Sidebar = () => {
 
   const location = useLocation(); // Current page path tracker
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
+        setShowUserDropdown(false);
+      }
+    };
+
+    if (showUserDropdown) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showUserDropdown]);
+
   const navigationMenu = [
     {
       id: 'dashboard',
       label: 'Dashboard',
-      icon: 'ri-dashboard-fill',
+      icon: 'ri-dashboard-line',
       items: [
         { path: '/admin-dashboard', label: 'Admin Dashboard' },
         { path: '/hr-dashboard', label: 'HR Dashboard' },
@@ -33,7 +52,7 @@ const Sidebar = () => {
     {
       id: 'projects',
       label: 'Projects',
-      icon: 'ri-article-fill',
+      icon: 'ri-article-line',
       items: [
         { path: '/projects', label: 'Projects' },
         { path: '/tasks', label: 'Tasks' },
@@ -44,7 +63,7 @@ const Sidebar = () => {
     {
       id: 'tickets',
       label: 'Tickets',
-      icon: 'ri-ticket-2-fill',
+      icon: 'ri-ticket-2-line',
       items: [
         { path: '/tickets-view', label: 'Tickets View' },
         { path: '/ticket-detail', label: 'Ticket Detail' }
@@ -53,7 +72,7 @@ const Sidebar = () => {
     {
       id: 'clients',
       label: 'Our Clients',
-      icon: 'ri-user-3-fill',
+      icon: 'ri-user-3-line',
       items: [
         { path: '/clients', label: 'Clients' },
         { path: '/client-profile', label: 'Client Profile' }
@@ -62,7 +81,7 @@ const Sidebar = () => {
     {
       id: 'employees',
       label: 'Employees',
-      icon: 'ri-team-fill',
+      icon: 'ri-team-line',
       items: [
         { path: '/members', label: 'Members' },
         { path: '/members-profile', label: 'Members Profile' },
@@ -77,7 +96,7 @@ const Sidebar = () => {
     {
       id: 'accounts',
       label: 'Accounts',
-      icon: 'ri-money-dollar-circle-fill',
+      icon: 'ri-money-dollar-circle-line',
       items: [
         { path: '/invoice', label: 'Invoice' },
         { path: '/payments', label: 'Payments' }
@@ -86,7 +105,7 @@ const Sidebar = () => {
     {
       id: 'payroll',
       label: 'Payroll',
-      icon: 'ri-wallet-3-fill',
+      icon: 'ri-wallet-3-line',
       items: [
         { path: '/employee-salary', label: 'Employee Salary' }
       ]
@@ -94,7 +113,7 @@ const Sidebar = () => {
     {
       id: 'app',
       label: 'App',
-      icon: 'ri-apps-2-fill',
+      icon: 'ri-apps-2-line',
       items: [
         { path: '/calendar', label: 'Calendar' },
         { path: '/chat-app', label: 'Chat App' }
@@ -103,7 +122,7 @@ const Sidebar = () => {
     {
       id: 'otherPages',
       label: 'Other Pages',
-      icon: 'ri-pages-fill',
+      icon: 'ri-pages-line',
       items: [
         { path: '/contacts', label: 'Contacts' },
         { path: '/notifications', label: 'Notifications' },
@@ -128,6 +147,31 @@ const Sidebar = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleUserDropdown = () => {
+    setShowUserDropdown(!showUserDropdown);
+  };
+
+  const handleUserAction = (action) => {
+    setShowUserDropdown(false);
+    // Handle different user actions
+    switch(action) {
+      case 'profile':
+        // Navigate to profile page
+        console.log('Navigate to profile');
+        break;
+      case 'settings':
+        // Navigate to settings page
+        console.log('Navigate to settings');
+        break;
+      case 'logout':
+        // Handle logout
+        console.log('Logout user');
+        break;
+      default:
+        break;
+    }
   };
 
   const toggleDropdown = (dropdownName) => {
@@ -230,13 +274,33 @@ const Sidebar = () => {
         </div>
         <div className="header-right">
           <span className="icon"><i className="ri-search-line"></i></span>
-          <span className="icon"><i className="ri-notification-3-fill"></i></span>
+          <span className="icon"><i className="ri-notification-3-line"></i></span>
           <button className="btn-project">+ New Project</button>
-          <img 
-            src="https://arawebtechnologies.com/assets/images/u1.png" 
-            alt="User" 
-            className="avatar" 
-          />
+          <span className="icon add-task-mobile"><i className="ri-add-line"></i></span>
+          <div className="user-profile-container" ref={userDropdownRef}>
+            <img 
+              src="https://arawebtechnologies.com/assets/images/u1.png" 
+              alt="User" 
+              className="avatar" 
+              onClick={toggleUserDropdown}
+            />
+            {showUserDropdown && (
+              <div className="user-dropdown">
+                <div className="user-dropdown-item" onClick={() => handleUserAction('profile')}>
+                  <i className="ri-user-line"></i>
+                  <span>My Profile</span>
+                </div>
+                <div className="user-dropdown-item" onClick={() => handleUserAction('settings')}>
+                  <i className="ri-settings-line"></i>
+                  <span>Settings</span>
+                </div>
+                <div className="user-dropdown-item logout" onClick={() => handleUserAction('logout')}>
+                  <i className="ri-logout-box-line"></i>
+                  <span>Logout</span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <div className={`sidebar ${isSidebarOpen ? 'sidebar-open' : ''}`}>
