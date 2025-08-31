@@ -21,7 +21,7 @@ const Sidebar = () => {
 
   const location = useLocation(); // Current page path tracker
 
-  // Close dropdown when clicking outside
+  // Close dropdown 
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (userDropdownRef.current && !userDropdownRef.current.contains(event.target)) {
@@ -45,6 +45,7 @@ const Sidebar = () => {
       icon: 'ri-dashboard-line',
       items: [
         { path: '/admin-dashboard', label: 'Admin Dashboard' },
+        { path: '/employees-dashboard', label: 'Employees Dashboard' },
         { path: '/hr-dashboard', label: 'HR Dashboard' },
         { path: '/project-dashboard', label: 'Project Dashboard' }
       ]

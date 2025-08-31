@@ -125,14 +125,19 @@ const Tasks = () => {
     }
   ]);
 
-  const getPriorityColor = (priority) => {
-    switch (priority) {
-      case 'High': return '#ef4444';
-      case 'Medium': return '#3b82f6';
-      case 'Low': return '#10b981';
-      default: return '#6b7280';
-    }
-  };
+ const getPriorityStyle = (priority) => {
+  switch (priority) {
+    case 'High':
+      return { color: '#991B1B', backgroundColor: '#FEE2E2' };
+    case 'Medium':
+      return { color: '#1E40AF', backgroundColor: '#DBEAFE' };
+    case 'Low':
+      return { color: '#166534', backgroundColor: '#DCFCE7' };
+    default:
+      return { color: '#374151', backgroundColor: '#E5E7EB' };
+  }
+};
+
 
   const openModal = (assignee) => {
     setSelectedAssignee(assignee);
@@ -359,12 +364,13 @@ const Tasks = () => {
               <div className="task-header">
                 <span className="project-name">{task.project}</span>
                 <div className="task-header-right">
-                  <span 
-                    className="priority-tag"
-                    style={{ backgroundColor: getPriorityColor(task.priority) }}
-                  >
-                    {task.priority}
-                  </span>
+               <span 
+  className="px-2  rounded-xl text-sm font-medium"
+  style={getPriorityStyle(task.priority)}
+>
+  {task.priority}
+</span>
+
                   <button 
                     className="task-menu-btn"
                     onClick={() => toggleDropdown(task.id)}

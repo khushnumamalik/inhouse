@@ -12,6 +12,7 @@ import Sidebar from './Sidebar/Sidebar';
 // Dashboard ke different views - admin, HR, aur project dashboard
 import Dashboard from './pages/Dashboard';
 import HRDashboard from './pages/HRDashboard';
+import EmployeesDashboard from './pages/EmployeesDashboard';
 import ProjectDashboard from './pages/ProjectDashboard';
 
 // Project se related sab kuch - projects, tasks, timesheet, aur team leaders
@@ -41,7 +42,6 @@ import Loan from './pages/Loan';
 // Money related pages - invoice, payments, salary
 import Invoice from './pages/Invoice';
 import Payments from './pages/Payments';
-import EmployeeSalary from './pages/EmployeeSalary';
 
 // Utility pages - calendar, chat, contacts, etc.
 import Calendar from './pages/Calendar';
@@ -72,6 +72,7 @@ function App() {
         {/* Dashboard ke routes - admin, HR, aur project dashboard */}
         <Route path="/" element={<AdminDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/employees-dashboard" element={<EmployeesDashboard />} />
         <Route path="/hr-dashboard" element={<HRDashboard />} />
         <Route path="/project-dashboard" element={<ProjectDashboard />} />
         
@@ -104,7 +105,6 @@ function App() {
         
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/payments" element={<Payments />} />
-        <Route path="/employee-salary" element={<EmployeeSalary />} />
         
       
         <Route path="/calendar" element={<Calendar />} />

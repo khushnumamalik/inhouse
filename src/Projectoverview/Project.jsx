@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import './project.css'
 
 /**
- * Project Component - ye projects ko overview ke saath show karta hai
- * Isme project ki details, progress, team members, aur deadline show hoti hai
+ * Project Component - projects overview 
  */
 const Project = () => {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -19,8 +18,7 @@ const Project = () => {
     subtasks: []
   });
 
-  // Projects ka data - ye cards mein show hota hai
-  // Isse easily modify kar sakte hain - add kar sakte hain, remove kar sakte hain, change kar sakte hain
+  // Projects data 
   const projectsData = [
     {
       id: 'deorags',
