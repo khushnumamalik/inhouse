@@ -11,7 +11,7 @@ const Card = () => {
       iconClass: 'total',
       
       trendClass: 'positive',
-      trendIcon: 'ri-arrow-up-line'
+     
     },
     {
       id: 'in-progress',
@@ -22,7 +22,7 @@ const Card = () => {
       iconClass: 'progress',
       
       trendClass: 'positive',
-      trendIcon: 'ri-arrow-up-line'
+   
     },
     {
       id: 'completed',
@@ -33,7 +33,7 @@ const Card = () => {
       iconClass: 'completed',
       
       trendClass: 'positive',
-      trendIcon: 'ri-arrow-up-line'
+      
     },
     {
       id: 'overdue',
@@ -44,7 +44,7 @@ const Card = () => {
       iconClass: 'overdue',
       
       trendClass: 'negative',
-      trendIcon: 'ri-arrow-down-line'
+     
     }
   ];
   const renderStatCard = (stat) => (
