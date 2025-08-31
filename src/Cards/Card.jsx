@@ -9,7 +9,7 @@ const Card = () => {
       subtitle: 'from last month',
       icon: 'ri-file-list-3-line',
       iconClass: 'total',
-      trend: '+2',
+      
       trendClass: 'positive',
       trendIcon: 'ri-arrow-up-line'
     },
@@ -20,7 +20,7 @@ const Card = () => {
       subtitle: 'from last month',
       icon: 'ri-time-line',
       iconClass: 'progress',
-      trend: '+3',
+      
       trendClass: 'positive',
       trendIcon: 'ri-arrow-up-line'
     },
@@ -42,7 +42,7 @@ const Card = () => {
       subtitle: 'from last month',
       icon: 'ri-error-warning-line',
       iconClass: 'overdue',
-      trend: '-2',
+      
       trendClass: 'negative',
       trendIcon: 'ri-arrow-down-line'
     }
