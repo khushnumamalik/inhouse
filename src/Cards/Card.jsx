@@ -31,7 +31,7 @@ const Card = () => {
       subtitle: 'from last month',
       icon: 'ri-checkbox-circle-line',
       iconClass: 'completed',
-      trend: '+1',
+      
       trendClass: 'positive',
       trendIcon: 'ri-arrow-up-line'
     },
